@@ -1,0 +1,919 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Elizabeth Wanja | Full-Stack Software Engineer & Systems Architect</title>
+    <style>
+        /* ==========================================================================
+           1. CORE ARCHITECTURE & DESIGN VARIABLE SYSTEMS (OBSIDIAN AMETHYST THEME)
+           ========================================================================== */
+        :root {
+            --bg-base: #060608;
+            --bg-surface: #0d0d12;
+            --bg-surface-elevated: #14141c;
+            --border-primary: #221f2d;
+            --border-glow: #443366;
+            
+            --text-main: #f3f1f6;
+            --text-muted: #9893a5;
+            --text-dim: #5c5768;
+            
+            --accent-primary: #a855f7;
+            --accent-secondary: #c084fc;
+            --accent-glow: rgba(168, 85, 247, 0.12);
+            --accent-glow-strong: rgba(168, 85, 247, 0.3);
+            --success-color: #10b981;
+            
+            --font-display: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            --font-mono: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace;
+            --transition-smooth: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        /* ==========================================================================
+           2. UNIVERSAL RESET AND GLOBAL STRUCTURAL RULES
+           ========================================================================== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--bg-base);
+            color: var(--text-main);
+            font-family: var(--font-display);
+            line-height: 1.6;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 2.5rem;
+        }
+
+        code, pre {
+            font-family: var(--font-mono);
+        }
+
+        /* Custom Global Scrollbar Details */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: var(--bg-base);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: var(--border-primary);
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--accent-primary);
+        }
+
+        /* Selection Color highlights */
+        ::selection {
+            background-color: var(--accent-primary);
+            color: var(--bg-base);
+        }
+
+        /* ==========================================================================
+           3. PREMIUM NAVIGATION ELEMENT DEFINITIONS
+           ========================================================================== */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            background: rgba(6, 6, 8, 0.75);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border-primary);
+        }
+
+        .nav-wrapper {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 80px;
+        }
+
+        .nav-identity {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            text-decoration: none;
+            color: var(--text-main);
+            font-family: var(--font-mono);
+            font-weight: 700;
+            font-size: 1.25rem;
+            letter-spacing: -0.5px;
+        }
+
+        .nav-identity span {
+            color: var(--accent-primary);
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 2.5rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            font-weight: 500;
+            transition: var(--transition-smooth);
+        }
+
+        .nav-links a:hover {
+            color: var(--accent-primary);
+        }
+
+        .nav-cta {
+            border: 1px solid var(--border-primary);
+            padding: 0.5rem 1.25rem;
+            border-radius: 6px;
+            background: var(--bg-surface);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .nav-cta:hover {
+            border-color: var(--accent-primary);
+            box-shadow: 0 0 15px var(--accent-glow);
+        }
+
+        /* ==========================================================================
+           4. ASYMMETRIC DASHBOARD GRID LAYOUT CONTEXTS
+           ========================================================================== */
+        main {
+            padding-top: 140px;
+            padding-bottom: 100px;
+        }
+
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: 2rem;
+        }
+
+        /* Utility Card Block Framework */
+        .dashboard-card {
+            background-color: var(--bg-surface);
+            border: 1px solid var(--border-primary);
+            border-radius: 12px;
+            padding: 2.5rem;
+            position: relative;
+            overflow: hidden;
+            transition: var(--transition-smooth);
+        }
+
+        .dashboard-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(800px circle at var(--mouse-x, 0) var(--mouse-y, 0), var(--accent-glow), transparent 40%);
+            z-index: 1;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+
+        .dashboard-card:hover {
+            border-color: var(--border-glow);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
+        }
+
+        /* ==========================================================================
+           5. SPECIALIZED INTERACTIVE HERO BLOCKS
+           ========================================================================== */
+        .hero-module {
+            grid-column: span 8;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: var(--accent-glow);
+            border: 1px solid rgba(168, 85, 247, 0.3);
+            color: var(--accent-secondary);
+            font-family: var(--font-mono);
+            font-size: 0.8rem;
+            padding: 0.4rem 0.8rem;
+            border-radius: 20px;
+            width: fit-content;
+            margin-bottom: 1.5rem;
+        }
+
+        .hero-badge .pulse-dot {
+            width: 6px;
+            height: 6px;
+            background-color: var(--accent-primary);
+            border-radius: 50%;
+            box-shadow: 0 0 8px var(--accent-primary);
+            animation: pulse-animation 2s infinite;
+        }
+
+        @keyframes pulse-animation {
+            0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(168, 85, 247, 0.7); }
+            70% { transform: scale(1); box-shadow: 0 0 0 6px rgba(168, 85, 247, 0); }
+            100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(168, 85, 247, 0); }
+        }
+
+        .hero-module h1 {
+            font-size: 3.2rem;
+            line-height: 1.15;
+            font-weight: 800;
+            letter-spacing: -1.5px;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, var(--text-main) 30%, var(--text-muted) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero-module p {
+            color: var(--text-muted);
+            font-size: 1.15rem;
+            max-width: 680px;
+            margin-bottom: 2.5rem;
+        }
+
+        .action-cluster {
+            display: flex;
+            gap: 1.25rem;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.85rem 1.75rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: var(--transition-smooth);
+            cursor: pointer;
+        }
+
+        .btn-primary {
+            background: var(--accent-primary);
+            color: var(--bg-base);
+            box-shadow: 0 4px 20px rgba(168, 85, 247, 0.25);
+        }
+
+        .btn-primary:hover {
+            background: var(--accent-secondary);
+            transform: translateY(-1px);
+            box-shadow: 0 6px 24px rgba(168, 85, 247, 0.4);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            border: 1px solid var(--border-primary);
+            color: var(--text-main);
+        }
+
+        .btn-secondary:hover {
+            background: var(--bg-surface-elevated);
+            border-color: var(--text-muted);
+        }
+
+        /* Quick Profile Visual Component */
+        .profile-module {
+            grid-column: span 4;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            background: linear-gradient(145deg, var(--bg-surface), #110e1a);
+        }
+
+        .profile-header {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .profile-name {
+            font-size: 1.5rem;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+
+        .profile-title {
+            font-family: var(--font-mono);
+            color: var(--accent-secondary);
+            font-size: 0.9rem;
+        }
+
+        .profile-location {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--text-dim);
+            font-size: 0.85rem;
+            margin-top: 0.5rem;
+        }
+
+        .meta-metrics {
+            border-top: 1px solid var(--border-primary);
+            padding-top: 1.5rem;
+            margin-top: 2rem;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+        }
+
+        .metric-item .metric-val {
+            font-family: var(--font-mono);
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: var(--text-main);
+        }
+
+        .metric-item .metric-label {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        /* ==========================================================================
+           6. INTERACTIVE BASH CONSOLE COMPONENT
+           ========================================================================== */
+        .console-module {
+            grid-column: span 12;
+            padding: 0;
+            background-color: #050507;
+            border: 1px solid var(--border-primary);
+            border-radius: 12px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .console-chrome {
+            background: var(--bg-surface);
+            padding: 0.75rem 1.25rem;
+            border-bottom: 1px solid var(--border-primary);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .chrome-dots {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .chrome-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #27272a;
+        }
+        .chrome-dot-red { background: #ef4444; }
+        .chrome-dot-yellow { background: #f59e0b; }
+        .chrome-dot-green { background: #10b981; }
+
+        .chrome-tab {
+            font-family: var(--font-mono);
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            background: var(--bg-base);
+            padding: 0.35rem 1rem;
+            border-radius: 4px;
+            border: 1px solid var(--border-primary);
+        }
+
+        .console-body {
+            padding: 2rem;
+            font-family: var(--font-mono);
+            font-size: 0.9rem;
+            color: #d4d4d8;
+            min-height: 260px;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .console-line {
+            display: flex;
+            gap: 0.75rem;
+            align-items: flex-start;
+        }
+
+        .console-prompt {
+            color: var(--accent-primary);
+            user-select: none;
+            white-space: nowrap;
+        }
+
+        .console-output {
+            color: var(--text-muted);
+            padding-left: 1.5rem;
+            white-space: pre-wrap;
+        }
+
+        .console-output span.highlight {
+            color: var(--text-main);
+            font-weight: bold;
+        }
+
+        /* ==========================================================================
+           7. CASE STUDIES & HIGH-FIDELITY PROJECT LAYOUTS
+           ========================================================================== */
+        .section-header-block {
+            grid-column: span 12;
+            margin-top: 4rem;
+            margin-bottom: 1rem;
+        }
+
+        .section-header-block h2 {
+            font-size: 2rem;
+            font-weight: 800;
+            letter-spacing: -1px;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .section-header-block h2::after {
+            content: '';
+            flex-grow: 1;
+            height: 1px;
+            background: var(--border-primary);
+        }
+
+        .project-block-heavy {
+            grid-column: span 6;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        @media (max-width: 1024px) {
+            .project-block-heavy { grid-column: span 12; }
+            .hero-module { grid-column: span 12; }
+            .profile-module { grid-column: span 12; }
+        }
+
+        .project-meta-strip {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .tag-badge {
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            background-color: var(--bg-surface-elevated);
+            border: 1px solid var(--border-primary);
+            color: var(--text-muted);
+            padding: 0.25rem 0.65rem;
+            border-radius: 4px;
+        }
+
+        .tag-badge-accent {
+            background-color: var(--accent-glow);
+            border-color: rgba(168, 85, 247, 0.2);
+            color: var(--accent-secondary);
+        }
+
+        .project-block-heavy h3 {
+            font-size: 1.6rem;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            margin-bottom: 1rem;
+            color: var(--text-main);
+        }
+
+        .project-narrative {
+            color: var(--text-muted);
+            font-size: 0.98rem;
+            margin-bottom: 2rem;
+        }
+
+        /* Blueprint Architectural Sub-Panel */
+        .architecture-panel {
+            background: #09090d;
+            border: 1px solid var(--border-primary);
+            border-left: 3px solid var(--accent-primary);
+            border-radius: 4px 8px 8px 4px;
+            padding: 1.25rem;
+            margin-bottom: 2rem;
+        }
+
+        .architecture-panel h4 {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            font-family: var(--font-mono);
+            letter-spacing: 1px;
+            color: var(--text-main);
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .architecture-panel p {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+
+        .project-footer-links {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-top: 1px solid var(--border-primary);
+            padding-top: 1.5rem;
+            margin-top: auto;
+        }
+
+        .arrow-link {
+            text-decoration: none;
+            color: var(--accent-secondary);
+            font-size: 0.95rem;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: var(--transition-smooth);
+        }
+
+        .arrow-link:hover {
+            color: var(--text-main);
+            transform: translateX(4px);
+        }
+
+        /* ==========================================================================
+           8. COMPETENCY MATRIX GRID ELEMENT DEFS
+           ========================================================================== */
+        .skill-matrix-card {
+            grid-column: span 4;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        @media (max-width: 900px) {
+            .skill-matrix-card { grid-column: span 12; }
+            .dashboard-grid { gap: 1.25rem; }
+            .container { padding: 0 1.25rem; }
+        }
+
+        .skill-matrix-card h3 {
+            font-family: var(--font-mono);
+            font-size: 1.05rem;
+            color: var(--accent-secondary);
+            border-bottom: 1px solid var(--border-primary);
+            padding-bottom: 0.75rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .matrix-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .matrix-list li {
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
+        }
+
+        .matrix-item-title {
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: var(--text-main);
+        }
+
+        .matrix-item-desc {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        /* ==========================================================================
+           9. PREMIUM MINIMALIST FOOTER HOOK
+           ========================================================================== */
+        footer {
+            margin-top: 8rem;
+            border-top: 1px solid var(--border-primary);
+            padding: 4rem 0;
+            background-color: #040406;
+        }
+
+        .footer-wrapper {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .footer-copy {
+            font-size: 0.9rem;
+            color: var(--text-dim);
+        }
+
+        .footer-system-status {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-family: var(--font-mono);
+            font-size: 0.8rem;
+            color: var(--success-color);
+        }
+
+        .status-indicator {
+            width: 8px;
+            height: 8px;
+            background-color: var(--success-color);
+            border-radius: 50%;
+            box-shadow: 0 0 8px var(--success-color);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Premium Navigation Element -->
+    <header>
+        <div class="container nav-wrapper">
+            <a href="#" class="nav-identity">
+                &lt;EW<span>.</span>Architect/&gt;
+            </a>
+            <nav class="nav-links">
+                <a href="#projects">Projects</a>
+                <a href="#skills">Matrix</a>
+                <a href="https://github.com/yourusername" class="nav-cta" target="_blank">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
+                    Source Engine
+                </a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Master Dashboard Grid Section -->
+    <main class="container">
+        <div class="dashboard-grid">
+            
+            <!-- Hero Module -->
+            <div class="dashboard-card hero-module">
+                <div class="hero-badge">
+                    <div class="pulse-dot"></div>
+                    Production Environment Online
+                </div>
+                <h1>Engineering robust digital platforms and system models.</h1>
+                <p>Full-Stack Software Engineer executing core architectural abstractions. Specialized in translating algorithmic dependencies into stable, production systems running natively within Linux Ubuntu servers.</p>
+                <div class="action-cluster">
+                    <a href="#projects" class="btn btn-primary">
+                        Read System Specs
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                    </a>
+                    <a href="https://github.com/yourusername" target="_blank" class="btn btn-secondary">Terminal Assets</a>
+                </div>
+            </div>
+
+            <!-- Profile Parameters Module -->
+            <div class="dashboard-card profile-module">
+                <div class="profile-header">
+                    <div class="profile-name">Elizabeth Wanja</div>
+                    <div class="profile-title">Full-Stack Developer</div>
+                    <div class="profile-location">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a8 8 0 0 0-8 8c0 5.25 8 12 8 12s8-6.75 8-12a8 8 0 0 0-8-8z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+                        Nyeri, Kenya
+                    </div>
+                </div>
+                
+                <div class="meta-metrics">
+                    <div class="metric-item">
+                        <div class="metric-val">Ubuntu</div>
+                        <div class="metric-label">OS Environment</div>
+                    </div>
+                    <div class="metric-item">
+                        <div class="metric-val">Django</div>
+                        <div class="metric-label">Primary Stack</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Active Bash Terminal Panel -->
+            <div class="console-module">
+                <div class="console-chrome">
+                    <div class="chrome-dots">
+                        <div class="chrome-dot chrome-dot-red"></div>
+                        <div class="chrome-dot chrome-dot-yellow"></div>
+                        <div class="chrome-dot chrome-dot-green"></div>
+                    </div>
+                    <div class="chrome-tab">wanja@obsidian:~</div>
+                    <div></div>
+                </div>
+                <div class="console-body">
+                    <div class="console-line">
+                        <div class="console-prompt">wanja@obsidian:~$</div>
+                        <div>neofetch --architect</div>
+                    </div>
+                    <div class="console-output"><span class="highlight">OS:</span> Ubuntu 24.04 LTS x86_64
+<span class="highlight">Host:</span> Institutional Core Architecture Environment
+<span class="highlight">Kernel:</span> Linux 6.8.0-generic
+<span class="highlight">Shell:</span> bash 5.2.21
+<span class="highlight">Compiler:</span> Python 3.12.3 / GCC 13.2.0
+<span class="highlight">Data Layer:</span> Structured Query Language (Relational Engine)</div>
+                    <div class="console-line">
+                        <div class="console-prompt">wanja@obsidian:~$</div>
+                        <div><span class="pulse-dot" style="display:inline-block; width:8px; height:8px; background-color:var(--accent-primary); border-radius:50%; vertical-align:middle; margin-left:2px;"></span></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Core Case Studies Title Block -->
+            <div class="section-header-block" id="projects">
+                <h2>Featured Architecture Showcases</h2>
+            </div>
+
+            <!-- Project Showcase 1: Integrated Digital Portal -->
+            <div class="dashboard-card project-block-heavy">
+                <div>
+                    <div class="project-meta-strip">
+                        <span class="tag-badge tag-badge-accent">Python</span>
+                        <span class="tag-badge tag-badge-accent">Django Core</span>
+                        <span class="tag-badge">Relational SQL</span>
+                        <span class="tag-badge">QR Cryptography</span>
+                    </div>
+                    <h3>Integrated Digital Institutional Portal</h3>
+                    <p class="project-narrative">An enterprise student account authentication system built to resolve structural validation inefficiencies. Employs programmatic identity management and cryptographic processing arrays.</p>
+                    
+                    <div class="architecture-panel">
+                        <h4>
+                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="3" width="7" height="9"></rect><rect x="14" y="3" width="7" height="5"></rect><rect x="14" y="12" width="7" height="9"></rect><rect x="3" y="16" width="7" height="5"></rect></svg>
+                            System Blueprint
+                        </h4>
+                        <p>Constructed precise database views paired with anti-countergery QR validation hooks. Generates verified visual data metrics dynamically map-bound to unique transactional integrity parameters.</p>
+                    </div>
+                </div>
+                
+                <div class="project-footer-links">
+                    <span class="tag-badge">System Verified</span>
+                    <a href="https://github.com/yourusername" target="_blank" class="arrow-link">
+                        Inspect Architecture
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Project Showcase 2: Clawed by Lizzie Custom Business Engine -->
+            <div class="dashboard-card project-block-heavy">
+                <div>
+                    <div class="project-meta-strip">
+                        <span class="tag-badge tag-badge-accent">Python</span>
+                        <span class="tag-badge tag-badge-accent">Django ORM</span>
+                        <span class="tag-badge">Relational Schema</span>
+                        <span class="tag-badge">State Persistence</span>
+                    </div>
+                    <h3>Clawed by Lizzie Management Engine</h3>
+                    <p class="project-narrative">A robust e-commerce business tracking system tailored to map variable configuration sets. Handles intricate production data points with exact spatial measurement tracking metrics.</p>
+                    
+                    <div class="architecture-panel">
+                        <h4>
+                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="12 2 2 7 12 12 22 7 12 2 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg>
+                            Data Schema Focus
+                        </h4>
+                        <p>Optimized highly relational schema configurations mapping one-to-many custom dimensions. Prevents anomalies across aesthetic records and inventory state tracking layers.</p>
+                    </div>
+                </div>
+                
+                <div class="project-footer-links">
+                    <span class="tag-badge">Operational</span>
+                    <a href="https://github.com/yourusername" target="_blank" class="arrow-link">
+                        Inspect Schema
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Technical Competency Matrices -->
+            <div class="section-header-block" id="skills">
+                <h2>Technical Competency Matrix</h2>
+            </div>
+
+            <!-- Matrix Card 1: Languages & Logic Frameworks -->
+            <div class="dashboard-card skill-matrix-card">
+                <h3>
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>
+                    Languages & Logic
+                </h3>
+                <ul class="matrix-list">
+                    <li>
+                        <div class="matrix-item-title">Python Core & Extended APIs</div>
+                        <div class="matrix-item-desc">Object-oriented structuring, clean package modularization, and advanced logic maps.</div>
+                    </li>
+                    <li>
+                        <div class="matrix-item-title">Django MVT Architecture</div>
+                        <div class="matrix-item-desc">Advanced ORM utilization, secure middleware mapping, and template view controllers.</div>
+                    </li>
+                    <li>
+                        <div class="matrix-item-title">JavaScript Essentials (ES6)</div>
+                        <div class="matrix-item-desc">Asynchronous execution flows, DOM processing array integrations, and state bindings.</div>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Matrix Card 2: Data Layers & Storage Systems -->
+            <div class="dashboard-card skill-matrix-card">
+                <h3>
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><ellipse cx="12" cy="5" rx="9" ry="3"></ellipse><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"></path><path d="M3 12c0 1.66 4 3 9 3s9-1.34 9-3"></path></svg>
+                    Data Layer Engineering
+                </h3>
+                <ul class="matrix-list">
+                    <li>
+                        <div class="matrix-item-title">Relational SQL Engines</div>
+                        <div class="matrix-item-desc">Complex inner/outer database table joins, normalization operations, and precise structural indexing.</div>
+                    </li>
+                    <li>
+                        <div class="matrix-item-title">Object-Relational Mapping</div>
+                        <div class="matrix-item-desc">Abstracting SQL transactional scripts directly through object layers cleanly.</div>
+                    </li>
+                    <li>
+                        <div class="matrix-item-title">Schema Optimization</div>
+                        <div class="matrix-item-desc">Maintaining referential constraints across complex, interconnected transactional databases.</div>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Matrix Card 3: Environments & Workflows -->
+            <div class="dashboard-card skill-matrix-card">
+                <h3>
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="17" x2="12" y2="21"></line></svg>
+                    Environment & Workflow
+                </h3>
+                <ul class="matrix-list">
+                    <li>
+                        <div class="matrix-item-title">Linux Ubuntu Environments</div>
+                        <div class="matrix-item-desc">Bash command terminal tracking, local server administration, and file layout monitoring.</div>
+                    </li>
+                    <li>
+                        <div class="matrix-item-title">Git & GitHub Systems</div>
+                        <div class="matrix-item-desc">Atomic file branching strategy tracking, conflict parsing, and clean repository staging.</div>
+                    </li>
+                    <li>
+                        <div class="matrix-item-title">Server Automation Stacks</div>
+                        <div class="matrix-item-desc">Managing development operations utilizing customized local server environments (LAMPP).</div>
+                    </li>
+                </ul>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Global Minimalist Footer Hook -->
+    <footer>
+        <div class="container footer-wrapper">
+            <div class="footer-copy">
+                &copy; 2026. Designed and compiled natively within Linux Ubuntu systems.
+            </div>
+            <div class="footer-system-status">
+                <div class="status-indicator"></div>
+                System Integrity Stable
+            </div>
+        </div>
+    </footer>
+
+    <!-- Interactive Mouse Lighting Effects Engine -->
+    <script>
+        const cards = document.querySelectorAll('.dashboard-card');
+        cards.forEach(card => {
+            card.addEventListener('mousemove', e => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                card.style.setProperty('--mouse-x', `${x}px`);
+                card.style.setProperty('--mouse-y', `${y}px`);
+                card.style.transform = `perspective(1000px) rotateX(${(y - rect.height/2) / -40}deg) rotateY(${(x - rect.width/2) / 40}deg)`;
+                card.querySelector('::before') ? card.style.setProperty('opacity', '1') : null;
+            });
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg)';
+            });
+        });
+    </script>
+</body>
+</html>
