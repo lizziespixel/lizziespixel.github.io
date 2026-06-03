@@ -1,10 +1,9 @@
-```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Elizabeth Wanja | Full-Stack Software Engineer & Systems Architect</title>
+    <title>Elizabeth Wanja | Software Engineer & AI Researcher</title>
     <style>
         /* ==========================================================================
            1. CORE ARCHITECTURE & DESIGN VARIABLE SYSTEMS (OBSIDIAN AMETHYST THEME)
@@ -60,7 +59,6 @@
             font-family: var(--font-mono);
         }
 
-        /* Custom Global Scrollbar Details */
         ::-webkit-scrollbar {
             width: 8px;
         }
@@ -75,7 +73,6 @@
             background: var(--accent-primary);
         }
 
-        /* Selection Color highlights */
         ::selection {
             background-color: var(--accent-primary);
             color: var(--bg-base);
@@ -145,6 +142,10 @@
             display: flex;
             align-items: center;
             gap: 0.5rem;
+            text-decoration: none;
+            font-size: 0.9rem;
+            color: var(--text-main);
+            transition: var(--transition-smooth);
         }
 
         .nav-cta:hover {
@@ -166,7 +167,6 @@
             gap: 2rem;
         }
 
-        /* Utility Card Block Framework */
         .dashboard-card {
             background-color: var(--bg-surface);
             border: 1px solid var(--border-primary);
@@ -175,20 +175,6 @@
             position: relative;
             overflow: hidden;
             transition: var(--transition-smooth);
-        }
-
-        .dashboard-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: radial-gradient(800px circle at var(--mouse-x, 0) var(--mouse-y, 0), var(--accent-glow), transparent 40%);
-            z-index: 1;
-            pointer-events: none;
-            opacity: 0;
-            transition: opacity 0.5s ease;
         }
 
         .dashboard-card:hover {
@@ -238,7 +224,7 @@
         }
 
         .hero-module h1 {
-            font-size: 3.2rem;
+            font-size: 3rem;
             line-height: 1.15;
             font-weight: 800;
             letter-spacing: -1.5px;
@@ -250,9 +236,10 @@
 
         .hero-module p {
             color: var(--text-muted);
-            font-size: 1.15rem;
-            max-width: 680px;
-            margin-bottom: 2.5rem;
+            font-size: 1.05rem;
+            max-width: 720px;
+            margin-bottom: 2rem;
+            line-height: 1.65;
         }
 
         .action-cluster {
@@ -296,23 +283,44 @@
             border-color: var(--text-muted);
         }
 
-        /* Quick Profile Visual Component */
+        /* Profile Visual Module (With Image Frame Integration) */
         .profile-module {
             grid-column: span 4;
             display: flex;
             flex-direction: column;
-            justify-content: space-between;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
             background: linear-gradient(145deg, var(--bg-surface), #110e1a);
+            gap: 1.25rem;
         }
 
-        .profile-header {
+        .profile-image-container {
+            position: relative;
+            width: 130px;
+            height: 130px;
+            border-radius: 50%;
+            padding: 4px;
+            background: linear-gradient(135deg, var(--accent-primary), var(--border-primary));
+            box-shadow: 0 0 25px var(--accent-glow);
+        }
+
+        .profile-image-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
+            background-color: var(--bg-surface-elevated);
+        }
+
+        .profile-meta-details {
             display: flex;
             flex-direction: column;
-            gap: 0.5rem;
+            gap: 0.25rem;
         }
 
         .profile-name {
-            font-size: 1.5rem;
+            font-size: 1.6rem;
             font-weight: 700;
             letter-spacing: -0.5px;
         }
@@ -321,38 +329,31 @@
             font-family: var(--font-mono);
             color: var(--accent-secondary);
             font-size: 0.9rem;
+            font-weight: 600;
         }
 
         .profile-location {
             display: flex;
             align-items: center;
+            justify-content: center;
             gap: 0.5rem;
             color: var(--text-dim);
             font-size: 0.85rem;
-            margin-top: 0.5rem;
+            margin-top: 0.25rem;
         }
 
-        .meta-metrics {
-            border-top: 1px solid var(--border-primary);
-            padding-top: 1.5rem;
-            margin-top: 2rem;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 1.5rem;
+        /* Statement Card Block */
+        .statement-module {
+            grid-column: span 12;
+            background: linear-gradient(180deg, var(--bg-surface) 0%, rgba(13, 13, 18, 0.6) 100%);
+            border-left: 4px solid var(--accent-primary);
         }
 
-        .metric-item .metric-val {
-            font-family: var(--font-mono);
-            font-size: 1.75rem;
-            font-weight: 700;
+        .statement-module p {
             color: var(--text-main);
-        }
-
-        .metric-item .metric-label {
-            font-size: 0.8rem;
-            color: var(--text-muted);
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
+            font-size: 1.1rem;
+            line-height: 1.7;
+            font-style: tracking;
         }
 
         /* ==========================================================================
@@ -407,7 +408,7 @@
             font-family: var(--font-mono);
             font-size: 0.9rem;
             color: #d4d4d8;
-            min-height: 260px;
+            min-height: 240px;
             display: flex;
             flex-direction: column;
             gap: 1rem;
@@ -462,13 +463,16 @@
         }
 
         .project-block-heavy {
-            grid-column: span 6;
+            grid-column: span 4;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
         }
 
-        @media (max-width: 1024px) {
+        @media (max-width: 1100px) {
+            .project-block-heavy { grid-column: span 6; }
+        }
+        @media (max-width: 768px) {
             .project-block-heavy { grid-column: span 12; }
             .hero-module { grid-column: span 12; }
             .profile-module { grid-column: span 12; }
@@ -477,17 +481,17 @@
         .project-meta-strip {
             display: flex;
             flex-wrap: wrap;
-            gap: 0.5rem;
-            margin-bottom: 1.5rem;
+            gap: 0.4rem;
+            margin-bottom: 1.25rem;
         }
 
         .tag-badge {
             font-family: var(--font-mono);
-            font-size: 0.75rem;
+            font-size: 0.72rem;
             background-color: var(--bg-surface-elevated);
             border: 1px solid var(--border-primary);
             color: var(--text-muted);
-            padding: 0.25rem 0.65rem;
+            padding: 0.2rem 0.55rem;
             border-radius: 4px;
         }
 
@@ -498,7 +502,7 @@
         }
 
         .project-block-heavy h3 {
-            font-size: 1.6rem;
+            font-size: 1.4rem;
             font-weight: 700;
             letter-spacing: -0.5px;
             margin-bottom: 1rem;
@@ -507,34 +511,34 @@
 
         .project-narrative {
             color: var(--text-muted);
-            font-size: 0.98rem;
-            margin-bottom: 2rem;
+            font-size: 0.92rem;
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
         }
 
-        /* Blueprint Architectural Sub-Panel */
         .architecture-panel {
             background: #09090d;
             border: 1px solid var(--border-primary);
             border-left: 3px solid var(--accent-primary);
             border-radius: 4px 8px 8px 4px;
-            padding: 1.25rem;
-            margin-bottom: 2rem;
+            padding: 1rem;
+            margin-bottom: 1.5rem;
         }
 
         .architecture-panel h4 {
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             text-transform: uppercase;
             font-family: var(--font-mono);
             letter-spacing: 1px;
             color: var(--text-main);
-            margin-bottom: 0.5rem;
+            margin-bottom: 0.35rem;
             display: flex;
             align-items: center;
             gap: 0.5rem;
         }
 
         .architecture-panel p {
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             color: var(--text-muted);
         }
 
@@ -543,14 +547,14 @@
             align-items: center;
             justify-content: space-between;
             border-top: 1px solid var(--border-primary);
-            padding-top: 1.5rem;
+            padding-top: 1.25rem;
             margin-top: auto;
         }
 
         .arrow-link {
             text-decoration: none;
             color: var(--accent-secondary);
-            font-size: 0.95rem;
+            font-size: 0.9rem;
             font-weight: 600;
             display: inline-flex;
             align-items: center;
@@ -575,8 +579,6 @@
 
         @media (max-width: 900px) {
             .skill-matrix-card { grid-column: span 12; }
-            .dashboard-grid { gap: 1.25rem; }
-            .container { padding: 0 1.25rem; }
         }
 
         .skill-matrix-card h3 {
@@ -594,7 +596,7 @@
             list-style: none;
             display: flex;
             flex-direction: column;
-            gap: 1rem;
+            gap: 1.1rem;
         }
 
         .matrix-list li {
@@ -655,65 +657,62 @@
 </head>
 <body>
 
-    <!-- Premium Navigation Element -->
+    <!-- Header Navigation Module -->
     <header>
         <div class="container nav-wrapper">
             <a href="#" class="nav-identity">
-                &lt;EW<span>.</span>Architect/&gt;
+                &lt;EW<span>.</span>AI-Engine/&gt;
             </a>
             <nav class="nav-links">
-                <a href="#projects">Projects</a>
-                <a href="#skills">Matrix</a>
+                <a href="#projects">Systems</a>
+                <a href="#skills">Competencies</a>
                 <a href="https://github.com/yourusername" class="nav-cta" target="_blank">
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
-                    Source Engine
+                    Source Code
                 </a>
             </nav>
         </div>
     </header>
 
-    <!-- Master Dashboard Grid Section -->
+    <!-- Master Dashboard Interface -->
     <main class="container">
         <div class="dashboard-grid">
             
-            <!-- Hero Module -->
+            <!-- Dynamic Hero Module -->
             <div class="dashboard-card hero-module">
                 <div class="hero-badge">
                     <div class="pulse-dot"></div>
-                    Production Environment Online
+                    Intelligent Systems Matrix Active
                 </div>
-                <h1>Engineering robust digital platforms and system models.</h1>
-                <p>Full-Stack Software Engineer executing core architectural abstractions. Specialized in translating algorithmic dependencies into stable, production systems running natively within Linux Ubuntu servers.</p>
+                <h1>Hi, I’m Elizabeth Wanja</h1>
+                <p>A Software Engineering and Machine Learning student dedicated to engineering modern web applications, intelligent mathematical systems, and innovative software solutions. I specialize in bridging the gap between robust full-stack Django backends and predictive data science models to solve complex, real-world analytical problems.</p>
                 <div class="action-cluster">
                     <a href="#projects" class="btn btn-primary">
-                        Read System Specs
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                        Review Systems
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
                     </a>
-                    <a href="https://github.com/yourusername" target="_blank" class="btn btn-secondary">Terminal Assets</a>
+                    <a href="https://github.com/yourusername" target="_blank" class="btn btn-secondary">Explore Repositories</a>
                 </div>
             </div>
 
-            <!-- Profile Parameters Module -->
+            <!-- Profile Parameters Module (With Profile Image Routing) -->
             <div class="dashboard-card profile-module">
-                <div class="profile-header">
+                <div class="profile-image-container">
+                    <img src="assets/profile.jpg" alt="Elizabeth Wanja Portrait">
+                </div>
+                <div class="profile-meta-details">
                     <div class="profile-name">Elizabeth Wanja</div>
-                    <div class="profile-title">Full-Stack Developer</div>
+                    <div class="profile-title">Software & AI Engineer</div>
                     <div class="profile-location">
                         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a8 8 0 0 0-8 8c0 5.25 8 12 8 12s8-6.75 8-12a8 8 0 0 0-8-8z"></path><circle cx="12" cy="10" r="3"></circle></svg>
                         Nyeri, Kenya
                     </div>
                 </div>
-                
-                <div class="meta-metrics">
-                    <div class="metric-item">
-                        <div class="metric-val">Ubuntu</div>
-                        <div class="metric-label">OS Environment</div>
-                    </div>
-                    <div class="metric-item">
-                        <div class="metric-val">Django</div>
-                        <div class="metric-label">Primary Stack</div>
-                    </div>
-                </div>
+            </div>
+
+            <!-- Deep Vision Statement Module -->
+            <div class="dashboard-card statement-module">
+                <p><strong>The Core Objective:</strong> I am deeply fascinated by Artificial Intelligence and see a monumental, transformative future in this space. My mission is to push the boundaries of automation and data intelligence, continuously expanding into cloud system design and predictive computing. I am aggressively refining my execution to build meaningful, highly scalable software frameworks while establishing a powerful trajectory as a leading woman in technology globally.</p>
             </div>
 
             <!-- Active Bash Terminal Panel -->
@@ -724,89 +723,105 @@
                         <div class="chrome-dot chrome-dot-yellow"></div>
                         <div class="chrome-dot chrome-dot-green"></div>
                     </div>
-                    <div class="chrome-tab">wanja@obsidian:~</div>
+                    <div class="chrome-tab">wanja@ai-node:~</div>
                     <div></div>
                 </div>
                 <div class="console-body">
                     <div class="console-line">
-                        <div class="console-prompt">wanja@obsidian:~$</div>
-                        <div>neofetch --architect</div>
+                        <div class="console-prompt">wanja@ai-node:~$</div>
+                        <div>initialize_stack --verbose</div>
                     </div>
-                    <div class="console-output"><span class="highlight">OS:</span> Ubuntu 24.04 LTS x86_64
-<span class="highlight">Host:</span> Institutional Core Architecture Environment
-<span class="highlight">Kernel:</span> Linux 6.8.0-generic
-<span class="highlight">Shell:</span> bash 5.2.21
-<span class="highlight">Compiler:</span> Python 3.12.3 / GCC 13.2.0
-<span class="highlight">Data Layer:</span> Structured Query Language (Relational Engine)</div>
+                    <div class="console-output"><span class="highlight">[CORE]</span> Environment verified on Linux Ubuntu core architecture.
+<span class="highlight">[STACK]</span> Web Frameworks: Python / Django MVT Pipeline.
+<span class="highlight">[AI-CORE]</span> Mathematical Array Engagements: Pandas, NumPy, Scikit-Learn Engines loaded.
+<span class="highlight">[TARGETS]</span> Actively seeking high-impact Collaborations, Internships, and Freelance Infrastructures.</div>
                     <div class="console-line">
-                        <div class="console-prompt">wanja@obsidian:~$</div>
+                        <div class="console-prompt">wanja@ai-node:~$</div>
                         <div><span class="pulse-dot" style="display:inline-block; width:8px; height:8px; background-color:var(--accent-primary); border-radius:50%; vertical-align:middle; margin-left:2px;"></span></div>
                     </div>
                 </div>
             </div>
 
-            <!-- Core Case Studies Title Block -->
+            <!-- Case Studies Title Block -->
             <div class="section-header-block" id="projects">
-                <h2>Featured Architecture Showcases</h2>
+                <h2>Engineered Applications & AI Models</h2>
             </div>
 
-            <!-- Project Showcase 1: Integrated Digital Portal -->
+            <!-- Project Card 1: House Price Prediction Model -->
             <div class="dashboard-card project-block-heavy">
                 <div>
                     <div class="project-meta-strip">
                         <span class="tag-badge tag-badge-accent">Python</span>
-                        <span class="tag-badge tag-badge-accent">Django Core</span>
-                        <span class="tag-badge">Relational SQL</span>
-                        <span class="tag-badge">QR Cryptography</span>
+                        <span class="tag-badge tag-badge-accent">Scikit-Learn</span>
+                        <span class="tag-badge">Pandas / NumPy</span>
+                        <span class="tag-badge">Regression</span>
                     </div>
-                    <h3>Integrated Digital Institutional Portal</h3>
-                    <p class="project-narrative">An enterprise student account authentication system built to resolve structural validation inefficiencies. Employs programmatic identity management and cryptographic processing arrays.</p>
+                    <h3>House Price Prediction Engine</h3>
+                    <p class="project-narrative">An intelligent machine learning model built to process real estate data arrays and predict market valuations. Integrates statistical feature scaling and hyperparameter mapping to enhance predictive decision-making.</p>
                     
                     <div class="architecture-panel">
                         <h4>
-                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="3" width="7" height="9"></rect><rect x="14" y="3" width="7" height="5"></rect><rect x="14" y="12" width="7" height="9"></rect><rect x="3" y="16" width="7" height="5"></rect></svg>
-                            System Blueprint
+                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg>
+                            Data Processing Matrix
                         </h4>
-                        <p>Constructed precise database views paired with anti-countergery QR validation hooks. Generates verified visual data metrics dynamically map-bound to unique transactional integrity parameters.</p>
+                        <p>Utilized Pandas and NumPy for advanced data cleaning, null interpolation, and outlier isolation before feeding arrays into linear and ensemble training models.</p>
                     </div>
                 </div>
-                
                 <div class="project-footer-links">
-                    <span class="tag-badge">System Verified</span>
-                    <a href="https://github.com/yourusername" target="_blank" class="arrow-link">
-                        Inspect Architecture
-                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
-                    </a>
+                    <span class="tag-badge">Model Optimized</span>
+                    <a href="https://github.com/yourusername" target="_blank" class="arrow-link">View Repo &rarr;</a>
                 </div>
             </div>
 
-            <!-- Project Showcase 2: Clawed by Lizzie Custom Business Engine -->
+            <!-- Project Card 2: Prison Management System -->
             <div class="dashboard-card project-block-heavy">
                 <div>
                     <div class="project-meta-strip">
                         <span class="tag-badge tag-badge-accent">Python</span>
                         <span class="tag-badge tag-badge-accent">Django ORM</span>
-                        <span class="tag-badge">Relational Schema</span>
-                        <span class="tag-badge">State Persistence</span>
+                        <span class="tag-badge">MySQL Stack</span>
+                        <span class="tag-badge">Secure Auth</span>
                     </div>
-                    <h3>Clawed by Lizzie Management Engine</h3>
-                    <p class="project-narrative">A robust e-commerce business tracking system tailored to map variable configuration sets. Handles intricate production data points with exact spatial measurement tracking metrics.</p>
+                    <h3>Prison Management Architecture</h3>
+                    <p class="project-narrative">A secure, high-fidelity administrative tracking portal designed to handle highly institutional data records. Focuses deeply on role-based authentication states and strict transaction security boundaries.</p>
+                    
+                    <div class="architecture-panel">
+                        <h4>
+                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+                            Backend Guardrails
+                        </h4>
+                        <p>Implemented relational database integrity configurations in MySQL to perfectly isolate tracking tables while enforcing secure view permissions across dashboards.</p>
+                    </div>
+                </div>
+                <div class="project-footer-links">
+                    <span class="tag-badge">Schema Locked</span>
+                    <a href="https://github.com/yourusername" target="_blank" class="arrow-link">View Repo &rarr;</a>
+                </div>
+            </div>
+
+            <!-- Project Card 3: Cinema Booking System -->
+            <div class="dashboard-card project-block-heavy">
+                <div>
+                    <div class="project-meta-strip">
+                        <span class="tag-badge tag-badge-accent">JavaScript</span>
+                        <span class="tag-badge tag-badge-accent">Django REST</span>
+                        <span class="tag-badge">Relational Models</span>
+                        <span class="tag-badge">UI Sync</span>
+                    </div>
+                    <h3>Cinema Booking Control Center</h3>
+                    <p class="project-narrative">A modern, responsive transactional web application tracking seat states and ticket distributions. Combines rich, interactive front-end layouts with dynamic database state synchronizations.</p>
                     
                     <div class="architecture-panel">
                         <h4>
                             <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="12 2 2 7 12 12 22 7 12 2 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg>
-                            Data Schema Focus
+                            State Management
                         </h4>
-                        <p>Optimized highly relational schema configurations mapping one-to-many custom dimensions. Prevents anomalies across aesthetic records and inventory state tracking layers.</p>
+                        <p>Fuses clean asynchronous logic pathways to map real-time structural seat arrangements, preventing record collisions across parallel user booking states.</p>
                     </div>
                 </div>
-                
                 <div class="project-footer-links">
-                    <span class="tag-badge">Operational</span>
-                    <a href="https://github.com/yourusername" target="_blank" class="arrow-link">
-                        Inspect Schema
-                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
-                    </a>
+                    <span class="tag-badge">Functional</span>
+                    <a href="https://github.com/yourusername" target="_blank" class="arrow-link">View Repo &rarr;</a>
                 </div>
             </div>
 
@@ -815,68 +830,68 @@
                 <h2>Technical Competency Matrix</h2>
             </div>
 
-            <!-- Matrix Card 1: Languages & Logic Frameworks -->
+            <!-- Matrix Card 1: Core Web & Full Stack Backend -->
             <div class="dashboard-card skill-matrix-card">
                 <h3>
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>
-                    Languages & Logic
+                    Full-Stack Web Systems
                 </h3>
                 <ul class="matrix-list">
                     <li>
-                        <div class="matrix-item-title">Python Core & Extended APIs</div>
-                        <div class="matrix-item-desc">Object-oriented structuring, clean package modularization, and advanced logic maps.</div>
+                        <div class="matrix-item-title">Python Core & Django Architecture</div>
+                        <div class="matrix-item-desc">Designing robust MVT server layers, custom security middleware, and object-relational data flows.</div>
                     </li>
                     <li>
-                        <div class="matrix-item-title">Django MVT Architecture</div>
-                        <div class="matrix-item-desc">Advanced ORM utilization, secure middleware mapping, and template view controllers.</div>
+                        <div class="matrix-item-title">Polished Interface Engineering</div>
+                        <div class="matrix-item-desc">Crafting responsive, visually striking designs via semantic HTML5, CSS3 layout rules, and dynamic JavaScript (ES6).</div>
                     </li>
                     <li>
-                        <div class="matrix-item-title">JavaScript Essentials (ES6)</div>
-                        <div class="matrix-item-desc">Asynchronous execution flows, DOM processing array integrations, and state bindings.</div>
+                        <div class="matrix-item-title">API Integration & Authentication</div>
+                        <div class="matrix-item-desc">Building secure login environments, state controllers, and cleanly mapped functional endpoints.</div>
                     </li>
                 </ul>
             </div>
 
-            <!-- Matrix Card 2: Data Layers & Storage Systems -->
+            <!-- Matrix Card 2: Artificial Intelligence & Data Science -->
+            <div class="dashboard-card skill-matrix-card">
+                <h3>
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
+                    AI & Machine Learning Matrix
+                </h3>
+                <ul class="matrix-list">
+                    <li>
+                        <div class="matrix-item-title">Scikit-Learn Predictive Modeling</div>
+                        <div class="matrix-item-desc">Training regression algorithms, data classification configurations, and optimizing inference performance.</div>
+                    </li>
+                    <li>
+                        <div class="matrix-item-title">Pandas & NumPy Vectorization</div>
+                        <div class="matrix-item-desc">Executing algorithmic data table modifications, matrix parsing, and structured engineering operations.</div>
+                    </li>
+                    <li>
+                        <div class="matrix-item-title">Data-Driven Decision Infrastructures</div>
+                        <div class="matrix-item-desc">Configuring systematic modeling frameworks to clean unstructured inputs and maximize accuracy.</div>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Matrix Card 3: Systems, Databases & Workflows -->
             <div class="dashboard-card skill-matrix-card">
                 <h3>
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><ellipse cx="12" cy="5" rx="9" ry="3"></ellipse><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"></path><path d="M3 12c0 1.66 4 3 9 3s9-1.34 9-3"></path></svg>
-                    Data Layer Engineering
+                    Database & Operations Control
                 </h3>
                 <ul class="matrix-list">
                     <li>
-                        <div class="matrix-item-title">Relational SQL Engines</div>
-                        <div class="matrix-item-desc">Complex inner/outer database table joins, normalization operations, and precise structural indexing.</div>
+                        <div class="matrix-item-title">MySQL Database Engineering</div>
+                        <div class="matrix-item-desc">Designing scalable transactional schemas, normalization layers, and referential constraints.</div>
                     </li>
                     <li>
-                        <div class="matrix-item-title">Object-Relational Mapping</div>
-                        <div class="matrix-item-desc">Abstracting SQL transactional scripts directly through object layers cleanly.</div>
+                        <div class="matrix-item-title">Linux Ubuntu Terminal Mastery</div>
+                        <div class="matrix-item-desc">Navigating internal file paths, running server management tasks, and running bash workflows natively.</div>
                     </li>
                     <li>
-                        <div class="matrix-item-title">Schema Optimization</div>
-                        <div class="matrix-item-desc">Maintaining referential constraints across complex, interconnected transactional databases.</div>
-                    </li>
-                </ul>
-            </div>
-
-            <!-- Matrix Card 3: Environments & Workflows -->
-            <div class="dashboard-card skill-matrix-card">
-                <h3>
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="17" x2="12" y2="21"></line></svg>
-                    Environment & Workflow
-                </h3>
-                <ul class="matrix-list">
-                    <li>
-                        <div class="matrix-item-title">Linux Ubuntu Environments</div>
-                        <div class="matrix-item-desc">Bash command terminal tracking, local server administration, and file layout monitoring.</div>
-                    </li>
-                    <li>
-                        <div class="matrix-item-title">Git & GitHub Systems</div>
-                        <div class="matrix-item-desc">Atomic file branching strategy tracking, conflict parsing, and clean repository staging.</div>
-                    </li>
-                    <li>
-                        <div class="matrix-item-title">Server Automation Stacks</div>
-                        <div class="matrix-item-desc">Managing development operations utilizing customized local server environments (LAMPP).</div>
+                        <div class="matrix-item-title">Git & GitHub Systems Control</div>
+                        <div class="matrix-item-desc">Managing clean version branches, tracking lines of code securely, and maintaining structured logs.</div>
                     </li>
                 </ul>
             </div>
@@ -888,7 +903,7 @@
     <footer>
         <div class="container footer-wrapper">
             <div class="footer-copy">
-                &copy; 2026. Designed and compiled natively within Linux Ubuntu systems.
+                &copy; 2026 Elizabeth Wanja. Formulated and compiled natively inside Linux Ubuntu environments.
             </div>
             <div class="footer-system-status">
                 <div class="status-indicator"></div>
@@ -905,10 +920,7 @@
                 const rect = card.getBoundingClientRect();
                 const x = e.clientX - rect.left;
                 const y = e.clientY - rect.top;
-                card.style.setProperty('--mouse-x', `${x}px`);
-                card.style.setProperty('--mouse-y', `${y}px`);
-                card.style.transform = `perspective(1000px) rotateX(${(y - rect.height/2) / -40}deg) rotateY(${(x - rect.width/2) / 40}deg)`;
-                card.querySelector('::before') ? card.style.setProperty('opacity', '1') : null;
+                card.style.transform = `perspective(1000px) rotateX(${(y - rect.height/2) / -50}deg) rotateY(${(x - rect.width/2) / 50}deg)`;
             });
             card.addEventListener('mouseleave', () => {
                 card.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg)';
